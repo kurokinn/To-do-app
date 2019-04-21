@@ -1,6 +1,6 @@
 class ListController < ApplicationController
   before_action :set_list, only: %i(edit update destroy)
-  
+
   def new
     @list = List.new
   end
@@ -8,7 +8,7 @@ class ListController < ApplicationController
   def create
     @list = List.new(list_params)
     if @list.save
-      redirect_to :root
+      redirect_to :authenticated_root
     else
       @list.valid?
       render action: :new
@@ -17,21 +17,21 @@ class ListController < ApplicationController
 
   def edit
   end
-  
+
   def update
     if @list.update_attributes(list_params)
-      redirect_to :root
+      redirect_to :authenticated_root
     else
       @list.valid?
       render action: :edit
     end
   end
-  
+
   def destroy
     @list.destroy
-    redirect_to :root
+    redirect_to :authenticated_root
   end
-  
+
   private
     def list_params
       params.require(:list).permit(:title).merge(user: current_user)

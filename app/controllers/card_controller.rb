@@ -9,7 +9,7 @@ class CardController < ApplicationController
   def create
     @card = Card.new(card_params)
     if @card.save
-      redirect_to :root
+      redirect_to :authenticated_root
     else
       @card.valid?
       render action: :new
@@ -26,7 +26,7 @@ class CardController < ApplicationController
 
   def update
     if @card.update_attributes(card_params)
-      redirect_to :root
+      redirect_to :authenticated_root
     else
       @card.valid?
       render action: :edit
@@ -35,7 +35,7 @@ class CardController < ApplicationController
 
   def destroy
     @card.destroy
-    redirect_to :root
+    redirect_to :authenticated_root
   end
 
   private
